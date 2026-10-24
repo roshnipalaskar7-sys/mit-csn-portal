@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MIT CSN - Student Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="dashboard-bg">
+    <header class="top-nav">
+        <div class="nav-brand">
+            <span class="mini-logo">MIT CSN</span>
+            <span>Computer Science & Engineering Department</span>
+        </div>
+        <a href="index.html" class="logout-link">Log Out</a>
+    </header>
+
+    <main class="dashboard-container">
+        <section class="welcome-banner">
+            <h1>CSE Academic Notes & eBooks Repository</h1>
+            <p>Access authorized curriculum notes, lecture PPTs, lab manuals, and reference standard eBooks.</p>
+            <input type="text" id="searchNotes" placeholder="Search subjects or topics (e.g., Data Structures, Operating Systems)..." onkeyup="filterNotes()">
+        </section>
+
+        <div class="notes-grid" id="notesGrid">
+            <!-- Data Structures & Algorithms Card -->
+            <div class="note-card" data-title="Data Structures & Algorithms">
+                <span class="badge">Semester 3</span>
+                <h3>Data Structures & Algorithms</h3>
+                <p>Comprehensive handwritten notes, trees, graphs, sorting algorithms implementation, and practice problem sets.</p>
+                <a href="books/dsa.pdf" class="download-btn" download>Download PDF</a>
+            </div>
+
+            <!-- Operating Systems Card -->
+            <div class="note-card" data-title="Operating Systems">
+                <span class="badge">Semester 4</span>
+                <h3>Operating Systems</h3>
+                <p>CPU scheduling algorithms, process synchronization, deadlocks, virtual memory management, and case studies.</p>
+                <a href="books/os.pdf" class="download-btn" download>Download PDF</a>
+            </div>
+
+            <!-- Database Management Systems Card -->
+            <div class="note-card" data-title="Database Management Systems">
+                <span class="badge">Semester 4</span>
+                <h3>Database Management Systems</h3>
+                <p>Relational algebra, SQL advanced queries, normalization forms, transaction processing, and ER-diagram examples.</p>
+                <a href="books/dbms.pdf" class="download-btn" download>Download PDF</a>
+            </div>
+
+            <!-- Computer Networks Card -->
+            <div class="note-card" data-title="Computer Networks">
+                <span class="badge">Semester 5</span>
+                <h3>Computer Networks</h3>
+                <p>OSI & TCP/IP stack layers, routing protocols, subnetting guides, socket programming handbooks, and network security.</p>
+                <a href="books/networks.pdf" class="download-btn" download>Download PDF</a>
+            </div>
+
+            <!-- Artificial Intelligence & Machine Learning Card -->
+            <div class="note-card" data-title="Artificial Intelligence & Machine Learning">
+                <span class="badge">Semester 6</span>
+                <h3>Artificial Intelligence & ML</h3>
+                <p>Search algorithms, heuristic evaluation, neural network fundamentals, supervised learning models, and Python code snippets.</p>
+                <a href="books/aiml.pdf" class="download-btn" download>Download PDF</a>
+            </div>
+
+            <!-- Design & Analysis of Algorithms Card -->
+            <div class="note-card" data-title="Design & Analysis of Algorithms">
+                <span class="badge">Semester 5</span>
+                <h3>Design & Analysis of Algorithms</h3>
+                <p>Dynamic programming, greedy approach, divide and conquer paradigms, time-complexity analysis, and NP-completeness.</p>
+                <a href="books/daa.pdf" class="download-btn" download>Download PDF</a>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function filterNotes() {
+            let input = document.getElementById('searchNotes').value.toLowerCase();
+            let cards = document.getElementsByClassName('note-card');
+            
+            for (let i = 0; i < cards.length; i++) {
+                let title = cards[i].getAttribute('data-title').toLowerCase();
+                if (title.includes(input)) {
+                    cards[i].style.display = "flex";
+                } else {
+                    cards[i].style.display = "none";
+                }
+            }
+        }
+    </script>
+</body>
+</html>

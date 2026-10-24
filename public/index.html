@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MIT CSN - CSE Department Portal</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="login-wrapper">
+        <div class="login-left">
+            <div class="brand-box">
+                <div class="logo-mark">MIT CSN</div>
+                <h1>CSE Department Portal</h1>
+                <p>Secure repository for curriculum notes, eBooks, and academic resources.</p>
+            </div>
+            <div class="motivation-slider">
+                <p id="quote-text">"Code is like humor. When you have to explain it, it’s bad." — Cory House</p>
+            </div>
+        </div>
+        <div class="login-right">
+            <div class="login-card">
+                <h2>Welcome Back</h2>
+                <p class="card-sub">Please sign in with your official <strong>@mit.asia</strong> email</p>
+                
+                <form id="loginForm">
+                    <div class="input-group">
+                        <label>Email Address</label>
+                        <input type="email" id="email" required placeholder="yourname@mit.asia">
+                    </div>
+                    <div class="input-group">
+                        <label>Password</label>
+                        <input type="password" id="password" required placeholder="••••••••">
+                    </div>
+                    <button type="submit" class="submit-btn">Sign In to Portal</button>
+                    <p id="error-msg" class="error-msg"></p>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Motivational quotes rotation
+        const quotes = [
+            "\"Code is like humor. When you have to explain it, it’s bad.\" — Cory House",
+            "\"First, solve the problem. Then, write the code.\" — John Johnson",
+            "\"Simplicity is prerequisite for reliability.\" — Edsger W. Dijkstra",
+            "\"Make it work, make it right, make it fast.\" — Kent Beck"
+        ];
+        let currentQuote = 0;
+        setInterval(() => {
+            currentQuote = (currentQuote + 1) % quotes.length;
+            const quoteEl = document.getElementById('quote-text');
+            if(quoteEl) quoteEl.textContent = quotes[currentQuote];
+        }, 5000);
+
+        // Login form submission handler
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+            const errorMsg = document.getElementById('error-msg');
+
+            errorMsg.textContent = "";
+
+            try {
+                const response = await fetch('/api/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+
+                const data = await response.json();
+                if (data.success) {
+                    window.location.href = data.redirect;
+                } else {
+                    errorMsg.textContent = data.message;
+                }
+            } catch (err) {
+                errorMsg.textContent = "Server connection error. Please try again.";
+            }
+        });
+    </script>
+</body>
+</html>
